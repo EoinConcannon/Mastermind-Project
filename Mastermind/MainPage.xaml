@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mastermind.MainPage">
+
+    <!--Top grid 1x4-->
+    <VerticalStackLayout BackgroundColor="Orange">
+
+        <Label x:Name="titleScreen" Text="Mastermind" FontSize="Large" 
+               TextColor="White" IsVisible="True"
+               HorizontalOptions="Center" VerticalOptions="Center"></Label>
+        
+        <!--Brings up main grid-->
+        <Button x:Name="playButton" Text="Play" IsVisible="True"
+                        TextColor="Orange" BackgroundColor="WhiteSmoke"
+                        HorizontalOptions="Center" VerticalOptions="Center"
+                        Clicked="playButton_Clicked"></Button>
+
+        <!--Displays a help pop-up-->
+        <Button x:Name="helpButton" Text="Help" IsVisible="True"
+                        TextColor="Orange" BackgroundColor="WhiteSmoke"
+                        HorizontalOptions="Center" VerticalOptions="Center"
+                        Clicked="helpButton_Clicked"></Button>
+
+        <VerticalStackLayout x:Name="topUI" BackgroundColor="DarkOrange" IsVisible="False">
+            <Grid HorizontalOptions="Center" VerticalOptions="Center"
+                  HeightRequest="40" WidthRequest="200">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!--Four ellipses that are displayed black with a ?
+                    colours change to the code when the game is over-->
+                <Ellipse Fill="Black" x:Name="hidden0"
+                     WidthRequest="35" HeightRequest="35"
+                     Grid.Row="0" Grid.Column="0"
+                     VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Label Text="?"
+                   Grid.Row="0" Grid.Column="0"
+                   VerticalOptions="Center" HorizontalOptions="Center"></Label>
+                <Ellipse Fill="Black" x:Name="hidden1"
+                     WidthRequest="35" HeightRequest="35"
+                     Grid.Row="0" Grid.Column="1"
+                     VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Label Text="?"
+                   Grid.Row="0" Grid.Column="1"
+                   VerticalOptions="Center" HorizontalOptions="Center"></Label>
+                <Ellipse Fill="Black" x:Name="hidden2"
+                     WidthRequest="35" HeightRequest="35"
+                     Grid.Row="0" Grid.Column="2"
+                     VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Label Text="?"
+                   Grid.Row="0" Grid.Column="2"
+                   VerticalOptions="Center" HorizontalOptions="Center"></Label>
+                <Ellipse Fill="Black" x:Name="hidden3"
+                     WidthRequest="35" HeightRequest="35"
+                     Grid.Row="0" Grid.Column="3"
+                     VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Label Text="?"
+                   Grid.Row="0" Grid.Column="3"
+                   VerticalOptions="Center" HorizontalOptions="Center"></Label>
+            </Grid>
+        </VerticalStackLayout>
+    
+        <!--Main Grid 7x13-->
+        <VerticalStackLayout>
+            <Grid x:Name="mainGrid" IsVisible="False"
+                  HorizontalOptions="Center" VerticalOptions="Center"
+                  HeightRequest="520" WidthRequest="350">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <!--Four pins, user taps a pin to change its colour-->
+                <Ellipse Fill="Red" x:Name="Pin0" 
+                     WidthRequest="35" HeightRequest="35"
+                     Grid.Row="9" Grid.Column="0"
+                     VerticalOptions="Center" HorizontalOptions="Center">
+                    <Ellipse.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Pin_Clicked0"></TapGestureRecognizer>
+                    </Ellipse.GestureRecognizers>
+                </Ellipse>
+
+                <Ellipse Fill="Blue" x:Name="Pin1"
+                     WidthRequest="35" HeightRequest="35"
+                     Grid.Row="9" Grid.Column="1"
+                     VerticalOptions="Center" HorizontalOptions="Center">
+                    <Ellipse.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Pin_Clicked1"></TapGestureRecognizer>
+                    </Ellipse.GestureRecognizers>
+                </Ellipse>
+
+                <Ellipse Fill="Green" x:Name="Pin2"
+                     WidthRequest="35" HeightRequest="35"
+                     Grid.Row="9" Grid.Column="2"
+                     VerticalOptions="Center" HorizontalOptions="Center">
+                    <Ellipse.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Pin_Clicked2"></TapGestureRecognizer>
+                    </Ellipse.GestureRecognizers>
+                </Ellipse>
+
+                <Ellipse Fill="Yellow" x:Name="Pin3"
+                     WidthRequest="35" HeightRequest="35"
+                     Grid.Row="9" Grid.Column="3"
+                     VerticalOptions="Center" HorizontalOptions="Center">
+                    <Ellipse.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Pin_Clicked3"></TapGestureRecognizer>
+                    </Ellipse.GestureRecognizers>
+                </Ellipse>
+
+                <!--Bottom Two buttons 
+                    mainButton moves pins up and creates two "hint" pins to the right
+                    homeButton brings up home screen-->
+                <Button x:Name="mainButton" IsEnabled="True"
+                        Clicked="Button_Clicked" Text="Check"
+                        TextColor="Orange" BackgroundColor="WhiteSmoke"
+                        Grid.Row="10" Grid.Column="0"
+                        Grid.ColumnSpan="5" Grid.RowSpan="2"></Button>
+
+                <Button x:Name="homeButton" Text="Home" Clicked="homeButton_Clicked"
+                        TextColor="Orange" BackgroundColor="WhiteSmoke"
+                        Grid.Row="10" Grid.Column="5"
+                        Grid.ColumnSpan="2" Grid.RowSpan="2"></Button>
+            </Grid>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+
+</ContentPage>
